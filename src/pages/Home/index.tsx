@@ -8,7 +8,7 @@ import {
     AiOutlineHeart 
 } from 'react-icons/ai'
 
-import Modals from '../../components/ModalAcess';
+import Modals from '../../components/Modals/ModalAcess';
 import {
     Container,
     TitleAppHome,
