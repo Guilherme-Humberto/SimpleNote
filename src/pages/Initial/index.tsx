@@ -31,7 +31,7 @@ import {
 } from './styles';
 
 import Fetcher from '../../hooks/Fetcher';
-import ModalNotes from '../../components/ModalNotes';
+import ModalNotes from '../../components/Modals/ModalNotes';
 
 const Initial: React.FC = () => {
   const router = useRouter()
