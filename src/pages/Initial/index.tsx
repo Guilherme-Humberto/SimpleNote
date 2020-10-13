@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/router'
+
 import api from '../../services/api'
 
 import { 
@@ -32,15 +34,15 @@ import Fetcher from '../../hooks/Fetcher';
 import ModalNotes from '../../components/ModalNotes';
 
 const Initial: React.FC = () => {
+  const router = useRouter()
   const [modal, setModal] = useState(false)
-  const [favorite, setFavorite] = useState(false)
-  const { data, mutate, error } = Fetcher("notes")
+  const { data, mutate } = Fetcher("notes")
 
   // Deletando Notas
   const handleDeleteNote = useCallback((id: number) => {
     api.delete(`notes/${id}`)
 
-    const teste = data?.map((item) => {
+    const teste = data?.map((item: any) => {
       if(item.id === id) {
         return {...item}
       }
@@ -52,20 +54,28 @@ const Initial: React.FC = () => {
   }, [data, mutate])
 
   // Atualizando Nota
-  const handleUpdateNote = useCallback((id: number) => {
-    api.put(`notes/${id}`, { 
-      favorite: true 
-    })
+  const handleUpdateNoteTrue = useCallback((id: number) => {
+    api.patch(`notes/${id}`, { favorite: true })
 
-    const teste = data?.map((item) => {
-      if(item.id === id) {
-        return {...item}
-      }
+    const updateItem = data?.map((item: any) => {
+      if(item.id === id) return {...item}
 
       return item
     })
 
-    mutate(teste, false)
+    mutate(updateItem, false)
+  }, [data, mutate])
+
+  const handleUpdateNoteFalse = useCallback((id: number) => {
+    api.patch(`notes/${id}`, { favorite: false })
+
+    const updateItem = data?.map((item) => {
+      if(item.id === id) return {...item}
+
+      return item
+    })
+
+    mutate(updateItem, false)
   }, [data, mutate])
 
   if(!data) return <h1>Carregando...</h1>
@@ -104,7 +114,11 @@ const Initial: React.FC = () => {
               </ButtonEdit>
 
               <ButtonFavorite
-                onClick={() => handleUpdateNote(item.id)}
+                onClick={() => {
+                  item.favorite ? 
+                  handleUpdateNoteFalse(item.id) : 
+                  handleUpdateNoteTrue(item.id)
+                }}
                 whileHover={{ scale: 1.4 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -115,13 +129,14 @@ const Initial: React.FC = () => {
               </ButtonFavorite>
 
               <ButtonShare 
+                onClick={() => router.push(`NoteDetails/#${item.id}`)}
                 whileHover={{ scale: 1.4 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <AiOutlineShareAlt size={30} color="#e1e1e6"/>
               </ButtonShare>
             </ContainerButtons>
-
+              <img src={item.img} alt=""/>
             <TitleCard>{item.title}</TitleCard>
             <DescCard>{item.note_value}</DescCard>
           </Card>
@@ -129,14 +144,14 @@ const Initial: React.FC = () => {
       </ContainerCards>
 
       <ButtonInitial onClick={() => setModal(true)}>
-        <BiPlus size={45} color="#e1e1e6"/>
+        <BiPlus size={45} color="#323F49"/>
       </ButtonInitial>
 
       {modal && (
         <ModalNotes 
           buttonCloseModal={
             <ButtonCloseModal onClick={() => setModal(false)}>
-              <AiOutlineClose color="#e1e1e6" size={35}/>
+              <AiOutlineClose color="#323F49" size={30}/>
             </ButtonCloseModal>
           }
         />
