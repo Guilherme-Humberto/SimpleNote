@@ -10,7 +10,7 @@ import {
   ButtonNewNote,
   ButtonModalFavorite
 } from './styles';
-import ListNotesFavorites from '../../ListNotesFavorites';
+import ListNotesFavorites from '../../Favorites';
 import ModalAddNote from '../ModalAddNote';
 
 interface Props {
