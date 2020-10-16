@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion'
 import { ImBooks } from 'react-icons/im'
 
+const teste = [
+    {
+        name: "Guilherme"
+    }
+]
+
 import { 
     AiOutlineShareAlt, 
     AiOutlineClose, 
@@ -29,8 +35,6 @@ import {
     Button
 } from './styles';
 
-
-
 const Home: React.FC = () => {
     const [modalsCad, setModalsCad] = useState(false)
     const [modalsAcess, setModalsAcess] = useState(false)
@@ -43,6 +47,7 @@ const Home: React.FC = () => {
         setModalsAcess(true)
         setModalsCad(false)
     }
+   
 
     return (
         <Container>

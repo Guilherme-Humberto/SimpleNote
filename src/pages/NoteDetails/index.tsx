@@ -2,7 +2,14 @@ import React from 'react';
 import { useRouter } from 'next/router'
 
 import Fetcher from '../../hooks/Fetcher';
-import { Container } from './styles';
+import { 
+  Container,
+  Logo,
+  Content,
+  Img,
+  TitleNote,
+  DescNote
+ } from './styles';
 
 const NoteDetails: React.FC = () => {
   const router = useRouter()
@@ -12,13 +19,18 @@ const NoteDetails: React.FC = () => {
 
   if(!data) return <h1>Carregando...</h1>
 
-  console.log(data)
   return (
     <Container
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }}
     >
-      <h1>NoteDetails</h1>
+      <Logo onClick={() => router.push("Initial")}>
+        SimpleNote
+      </Logo>
+      <Content>
+        <TitleNote>{data.title}</TitleNote>
+        <DescNote>{data.note_value}</DescNote>
+      </Content>
     </Container>
   );
 };

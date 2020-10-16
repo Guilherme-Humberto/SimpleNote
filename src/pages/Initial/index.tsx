@@ -20,6 +20,7 @@ import {
   ContainerCards,
   Card,
   ContainerButtons,
+  Date,
   TitleCard,
   DescCard,
   ButtonDelete,
@@ -31,11 +32,14 @@ import {
 } from './styles';
 
 import Fetcher from '../../hooks/Fetcher';
-import ModalNotes from '../../components/Modals/ModalNotes';
+import ButtonPlus from '../../components/ButtonPlus';
+import ModalEditNote from '../../components/Modals/ModalEditNote';
+
 
 const Initial: React.FC = () => {
   const router = useRouter()
   const [modal, setModal] = useState(false)
+  const [modalEdit, setModalEdit] = useState(false)
   const { data, mutate } = Fetcher("notes")
 
   // Deletando Notas
@@ -55,7 +59,7 @@ const Initial: React.FC = () => {
 
   // Atualizando Nota
   const handleUpdateNoteTrue = useCallback((id: number) => {
-    api.patch(`notes/${id}`, { favorite: true })
+    api.patch(`favorite/${id}`, { favorite: true })
 
     const updateItem = data?.map((item: any) => {
       if(item.id === id) return {...item}
@@ -67,7 +71,7 @@ const Initial: React.FC = () => {
   }, [data, mutate])
 
   const handleUpdateNoteFalse = useCallback((id: number) => {
-    api.patch(`notes/${id}`, { favorite: false })
+    api.patch(`favorite/${id}`, { favorite: false })
 
     const updateItem = data?.map((item) => {
       if(item.id === id) return {...item}
@@ -79,11 +83,10 @@ const Initial: React.FC = () => {
   }, [data, mutate])
 
   if(!data) return <h1>Carregando...</h1>
-  
-  console.log(data)
+
   return (
     <Container 
-      initial={{ opacity: 0 }} 
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
       <Title>Bem vindo Guilherme Humberto</Title>
@@ -93,13 +96,13 @@ const Initial: React.FC = () => {
         {data.map((item, index) => (
           <Card 
             key={index}
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 1 }}  
+            initial={{ x: "-100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}  
           >
             <ContainerButtons>
               <ButtonDelete 
-                onClick={() => handleDeleteNote(item.id)}
+                onClick={() => handleDeleteNote(item._id)}
                 whileHover={{ scale: 1.4 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -107,6 +110,7 @@ const Initial: React.FC = () => {
               </ButtonDelete>
 
               <ButtonEdit 
+                onClick={() => setModalEdit(true)}
                 whileHover={{ scale: 1.4 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -116,8 +120,8 @@ const Initial: React.FC = () => {
               <ButtonFavorite
                 onClick={() => {
                   item.favorite ? 
-                  handleUpdateNoteFalse(item.id) : 
-                  handleUpdateNoteTrue(item.id)
+                  handleUpdateNoteFalse(item._id) : 
+                  handleUpdateNoteTrue(item._id)
                 }}
                 whileHover={{ scale: 1.4 }}
                 whileTap={{ scale: 0.9 }}
@@ -129,32 +133,37 @@ const Initial: React.FC = () => {
               </ButtonFavorite>
 
               <ButtonShare 
-                onClick={() => router.push(`NoteDetails/#${item.id}`)}
+                onClick={() => router.push(`NoteDetails/#${item._id}`)}
                 whileHover={{ scale: 1.4 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <AiOutlineShareAlt size={30} color="#e1e1e6"/>
               </ButtonShare>
             </ContainerButtons>
-              <img src={item.img} alt=""/>
+            
+            <Date>{item.createAt}</Date>
             <TitleCard>{item.title}</TitleCard>
             <DescCard>{item.note_value}</DescCard>
           </Card>
         ))}
       </ContainerCards>
-
       <ButtonInitial onClick={() => setModal(true)}>
         <BiPlus size={45} color="#323F49"/>
       </ButtonInitial>
 
       {modal && (
-        <ModalNotes 
+        <ButtonPlus 
+          favoriteClear={handleUpdateNoteFalse}
           buttonCloseModal={
             <ButtonCloseModal onClick={() => setModal(false)}>
               <AiOutlineClose color="#323F49" size={30}/>
             </ButtonCloseModal>
           }
         />
+      )}
+
+      {modalEdit && (
+        <ModalEditNote />
       )}
       
     </Container>

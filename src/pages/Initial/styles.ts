@@ -35,6 +35,13 @@ export const Card = styled(motion.div)`
     background: #17232C;
 `
 
+export const Date = styled.p`
+    font-size: 20px;
+    font-family: Roboto;
+    font-weight: bold;
+    margin: 10px;
+`
+
 export const TitleCard = styled.p`
     font-size: 40px;
     font-family: Sansita;
@@ -57,6 +64,7 @@ export const ContainerButtons = styled.div`
 `
 
 export const ButtonDelete = styled(motion.button)`
+    cursor: pointer;
     border-radius: 50%;
     padding: 5px;
     border: none;
@@ -67,6 +75,7 @@ export const ButtonDelete = styled(motion.button)`
     justify-content: center;
 `
 export const ButtonEdit = styled(motion.button)`
+    cursor: pointer;
     border-radius: 50%;
     padding: 5px;
     border: none;
@@ -77,6 +86,7 @@ export const ButtonEdit = styled(motion.button)`
     justify-content: center;
 `
 export const ButtonFavorite = styled(motion.button)`
+    cursor: pointer;
     border-radius: 50%;
     padding: 5px;
     border: none;
@@ -87,6 +97,7 @@ export const ButtonFavorite = styled(motion.button)`
     justify-content: center;
 `
 export const ButtonShare = styled(motion.button)`
+    cursor: pointer;
     border-radius: 50%;
     padding: 5px;
     border: none;
@@ -98,6 +109,7 @@ export const ButtonShare = styled(motion.button)`
 `
 
 export const ButtonInitial = styled(motion.button)`
+    cursor: pointer;
     position: fixed;
     z-index: 1;
     right: 2%;
@@ -114,6 +126,7 @@ export const ButtonInitial = styled(motion.button)`
 `
 
 export const ButtonCloseModal = styled.button`
+    cursor: pointer;
     margin: 0 4%;
     background: transparent;
     outline: none;
