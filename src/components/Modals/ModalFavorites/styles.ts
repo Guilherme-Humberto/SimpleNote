@@ -7,6 +7,7 @@ export const Container = styled(motion.div)`
     top: 0;
     left: 0;
     height: 100%;
+    width: 500px;
     max-width: 500px;
     overflow-y: auto;
     background: #17232C;
@@ -31,6 +32,16 @@ export const Card = styled(motion.div)`
     max-width: 450px;
     background: #323F49;
     margin: 0 20px;
+`
+
+export const Img = styled.img`
+    margin: 10px;
+    width: 390px;
+`
+
+export const TitleTop = styled.p`
+    font-size: 30px;
+    font-family: Sansita;
 `
 
 export const TitleCard = styled.p`
@@ -60,7 +71,7 @@ export const ContentTop = styled.div`
     display: flex;
     gap: 20px;
     flex-direction: column;
-    align-items: center;
+    padding: 10px 20px;
     justify-content: space-around;
 `
 
@@ -68,8 +79,24 @@ export const ButtonCloseModal = styled.button`
     position: absolute;
     top: 2%;
     right: 3%;
-    padding: 10px;
     background: transparent;
     border: none;
-    outline: none
+    outline: none;
+`
+
+export const ContainerButtonFavorite = styled.div`
+    position: absolute;
+    transform: translate(-80%, -80%);
+`
+
+export const ButtonFavorite = styled(motion.button)`
+    cursor: pointer;
+    background: #A34848;
+    padding: 7px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `

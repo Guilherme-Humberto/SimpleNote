@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router'
-import { AiFillHeart } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineClose } from 'react-icons/ai'
 import { BiPlus } from 'react-icons/bi'
 
 
@@ -8,16 +8,18 @@ import {
   Container,
   ContentTop,
   ButtonNewNote,
-  ButtonModalFavorite
+  ButtonModalFavorite,
+  ButtoCloseModalAdd
 } from './styles';
-import ListNotesFavorites from '../../Favorites';
-import ModalAddNote from '../ModalAddNote';
+import ModalFavorites from '../Modals/ModalFavorites';
+import ModalAddNote from '../Modals/ModalAddNote';
 
 interface Props {
-  buttonCloseModal: any
+  buttonCloseModal: any,
+  favoriteClear: any
 }
 
-const ModalNotes: React.FC<Props> = ({ buttonCloseModal }) => {
+const ModalNotes: React.FC<Props> = ({ buttonCloseModal, favoriteClear }) => {
   const [modal, setModal] = useState(false)
   const [modalAdd, setModalAdd] = useState(false)
 
@@ -41,13 +43,21 @@ const ModalNotes: React.FC<Props> = ({ buttonCloseModal }) => {
       </Container>
 
       {modal && (
-        <ListNotesFavorites
+        <ModalFavorites
+          clearFavorite={favoriteClear}
           buttonCloseModal={() => setModal(false)}
         />
       )}
 
       {modalAdd && (
-        <ModalAddNote />
+        <ModalAddNote 
+          functionCloseModal={setModalAdd}
+          buttonCloseModal={
+            <ButtoCloseModalAdd onClick={() => setModalAdd(false)}>
+              <AiOutlineClose size={35} color="#e1e1e1" />
+            </ButtoCloseModalAdd>
+          }
+        />
       )}
     </>
   );

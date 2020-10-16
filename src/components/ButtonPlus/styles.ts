@@ -18,6 +18,7 @@ export const Container = styled(motion.div)`
 `;
 
 export const ButtonAddNote = styled.button`
+    cursor: pointer;
     margin: 9% 4%;
     padding: 10px;
     width: 50%;
@@ -37,6 +38,7 @@ export const ContentTop = styled.div`
 `
 
 export const ButtonNewNote = styled.button`
+    cursor: pointer;
     border-radius: 50%;
     padding: 10px;
     border: 2px solid #323F49;
@@ -48,6 +50,7 @@ export const ButtonNewNote = styled.button`
 `
 
 export const ButtonModalFavorite = styled.button`
+    cursor: pointer;
     margin-top: 2rem;
     border-radius: 50%;
     padding: 10px;
@@ -57,4 +60,14 @@ export const ButtonModalFavorite = styled.button`
     outline: none;
     align-items: center;
     justify-content: center;
+`
+
+export const ButtoCloseModalAdd = styled.button`
+    cursor: pointer;
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    background: transparent;
+    border: none;
+    outline: none;
 `

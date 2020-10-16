@@ -1,11 +1,28 @@
 import React from 'react';
+import Dropzone from 'react-dropzone'
 
-import { Container } from './styles';
+import { 
+  Container,
+  DropContainer
+ } from './styles';
 
-const Upload: React.FC = () => {
+ interface Props {
+  onUpload: any
+ }
+
+const Upload: React.FC<Props> = ({ onUpload }) => {
   return (
     <Container>
-      <h1>Upload</h1>
+      <Dropzone accept="image/*" onDropAccepted={onUpload}>
+          { ({ getRootProps, getInputProps }) => (
+            <DropContainer
+            {...getRootProps()}
+            >
+              <h2 style={{ fontFamily: "Sansita", color: "#ccc" }}>Arraste e solte a imagem</h2>
+              <input {...getInputProps()}/>
+            </DropContainer>
+          )}
+        </Dropzone>
     </Container>
   );
 };
