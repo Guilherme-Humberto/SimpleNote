@@ -7,8 +7,6 @@ export default function Fetcher<Data = any, Error = any>(url: string) {
         const data = await response.data
 
         return data
-    }, {
-        refreshInterval: 500
     })
 
     return { data, error, mutate }
