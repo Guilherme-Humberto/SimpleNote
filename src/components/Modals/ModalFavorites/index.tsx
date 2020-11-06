@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { AiOutlineClose, AiFillHeart } from 'react-icons/ai'
 
 import {
@@ -6,7 +6,6 @@ import {
   TitleTop,
   ContainerCards,
   Card,
-  Img,
   TitleCard,
   DescCard,
   ContentTop,
@@ -15,18 +14,19 @@ import {
   ButtonFavorite
 } from './styles';
 import Fetcher from '../../../hooks/Fetcher';
+import api from '../../../services/api';
 
 interface Props {
-  buttonCloseModal: any,
-  clearFavorite: any
+  buttonCloseModal: any
+  infos: string,
+  token: string
 }
 
-const ListNotesFavorites: React.FC<Props> = ({ buttonCloseModal, clearFavorite }) => {
-  const { data } = Fetcher("notes")
+const ListNotesFavorites: React.FC<Props> = ({ buttonCloseModal, infos, token }) => {
+  const { data } = Fetcher(`notes/${infos}?favorite=true`, `${token}`)
 
   if (!data) return <h1>Carregando...</h1>
-
-  console.log(data)
+  
   return (
     <Container
       initial={{ x: "-100%", opacity: 0 }}
@@ -40,26 +40,12 @@ const ListNotesFavorites: React.FC<Props> = ({ buttonCloseModal, clearFavorite }
         </ButtonCloseModal>
       </ContentTop>
 
-      <ContainerCards
-        initial={{ x: "-100%", opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.2 }}  
-      >
+      <ContainerCards>
         {data.filter((item) => item.favorite === true).map((item) => (
           <Card key={item._id}>
-            <ContainerButtonFavorite>
-              <ButtonFavorite
-                onClick={() => clearFavorite(item._id)}
-                whileHover={{ scale: 1.4 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <AiFillHeart size={30} color="#e5989b"/>
-              </ButtonFavorite>
-            </ContainerButtonFavorite>
-            <br />
             <h3>{item.createAt}</h3>
             <TitleCard>{item.title}</TitleCard>
-            <DescCard>{item.note_value}</DescCard>
+            <DescCard>{item.note}</DescCard>
           </Card>
         ))}
       </ContainerCards>

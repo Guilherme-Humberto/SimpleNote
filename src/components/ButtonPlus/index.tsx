@@ -15,11 +15,12 @@ import ModalFavorites from '../Modals/ModalFavorites';
 import ModalAddNote from '../Modals/ModalAddNote';
 
 interface Props {
-  buttonCloseModal: any,
-  favoriteClear: any
+  buttonCloseModal: any
+  infos: any,
+  token: string
 }
 
-const ModalNotes: React.FC<Props> = ({ buttonCloseModal, favoriteClear }) => {
+const ModalNotes: React.FC<Props> = ({ buttonCloseModal, infos, token }) => {
   const [modal, setModal] = useState(false)
   const [modalAdd, setModalAdd] = useState(false)
 
@@ -44,13 +45,16 @@ const ModalNotes: React.FC<Props> = ({ buttonCloseModal, favoriteClear }) => {
 
       {modal && (
         <ModalFavorites
-          clearFavorite={favoriteClear}
+          infos={infos}
+          token={token}
           buttonCloseModal={() => setModal(false)}
         />
       )}
 
       {modalAdd && (
         <ModalAddNote 
+          infos={infos}
+          token={token}
           functionCloseModal={setModalAdd}
           buttonCloseModal={
             <ButtoCloseModalAdd onClick={() => setModalAdd(false)}>

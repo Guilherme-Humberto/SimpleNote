@@ -4,22 +4,19 @@ import { motion } from 'framer-motion'
 export const Container = styled(motion.div)`
     position: fixed;
     z-index: 5;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    height: 80%;
-    width: 80%;
+    top: 0;
+    height: 100%;
+    width: 100%;
     overflow-y: none;
     background: #17232C;
     border-radius: 10px;
-    box-shadow: 30px 30px 60px 80px rgb(0, 0, 0, 0.4);
 `
 
 export const ContentModal = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    padding: 5% 20px;
 `
 
 export const FormModal = styled.form`
@@ -30,9 +27,9 @@ export const FormModal = styled.form`
     
 `
 export const Label = styled.p`
-    font-size: 30px;
+    font-size: 40px;
     font-family: Sansita;
-    margin: 10px 0;
+    margin: 20px 0;
 `
 export const InputModal = styled.input`
     padding: 10px;

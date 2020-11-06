@@ -11,7 +11,7 @@ export const Container = styled(motion.div)`
     max-width: 500px;
     overflow-y: auto;
     background: #17232C;
-    box-shadow: 10px 0px 20px rgb(0, 0, 0, 0.6);
+    box-shadow: 10px 0px 20px rgb(0, 0, 0, 0.2);
 
     ::-webkit-scrollbar {
         background: transparent
@@ -82,21 +82,4 @@ export const ButtonCloseModal = styled.button`
     background: transparent;
     border: none;
     outline: none;
-`
-
-export const ContainerButtonFavorite = styled.div`
-    position: absolute;
-    transform: translate(-80%, -80%);
-`
-
-export const ButtonFavorite = styled(motion.button)`
-    cursor: pointer;
-    background: #A34848;
-    padding: 7px;
-    border-radius: 50%;
-    border: none;
-    outline: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 `
