@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { motion } from 'framer-motion'
 import { ImBooks } from 'react-icons/im'
+import { useRouter } from 'next/router'
 
-const teste = [
-    {
-        name: "Guilherme"
-    }
-]
-
-import { 
-    AiOutlineShareAlt, 
-    AiOutlineClose, 
-    AiOutlineHeart 
+import {
+    AiOutlineShareAlt,
+    AiOutlineClose,
+    AiOutlineHeart
 } from 'react-icons/ai'
 
 import Modals from '../../components/Modals/ModalAcess';
@@ -34,10 +29,17 @@ import {
     InputModalCad,
     Button
 } from './styles';
+import api from '../../services/api';
 
 const Home: React.FC = () => {
+    const router = useRouter()
     const [modalsCad, setModalsCad] = useState(false)
     const [modalsAcess, setModalsAcess] = useState(false)
+
+    const [name, setName] = useState("")
+    const [surname, setSurname] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     const handleOpenModalCad = () => {
         setModalsCad(true)
@@ -47,7 +49,18 @@ const Home: React.FC = () => {
         setModalsAcess(true)
         setModalsCad(false)
     }
-   
+
+    const handleSubmit = async (event: FormEvent) => {
+        event.preventDefault();
+        await api.post("register", { name, email, password })
+        .then((response) => {
+            const { token, user } = response.data
+            localStorage.setItem("token", token)
+            localStorage.setItem("user", JSON.stringify(user))
+            router.push("Initial")
+        })
+        .catch(err => console.log(err))
+    }
 
     return (
         <Container>
@@ -60,7 +73,7 @@ const Home: React.FC = () => {
                 <DescAppHome>
                     Mantenha a organização com blocos de anotações que você pode dividir em seções e páginas.
                     Com navegação e pesquisa fáceis, você sempre encontra as anotações exatamente onde as deixou.
-            </DescAppHome>
+                </DescAppHome>
 
                 <ButtonsContainerHome>
                     <motion.button
@@ -80,8 +93,6 @@ const Home: React.FC = () => {
                 </ButtonsContainerHome>
 
                 <CardsContainerHome>
-                    {/* Primeiro Card */}
-
                     <motion.div
                         id="cardHome"
                         animate={{ x: 0 }} initial={{ x: "-100%" }}
@@ -98,7 +109,7 @@ const Home: React.FC = () => {
                             Classifique o conteúdo em blocos de anotações, seções e páginas.
                     </TextsCardHome>
                     </motion.div>
-                    {/* Segundo Card */}
+
                     <motion.div
                         id="cardHome"
                         animate={{ x: 0 }} initial={{ x: "-150%" }}
@@ -129,17 +140,30 @@ const Home: React.FC = () => {
                         <>
                         <Title>Criar Conta</Title>
                         <Desc>Pronto para anotar suas ideias e organizar o seu dia? Então não perca mais tempo. Crie sua conta.</Desc>
-                        <Form>
+                        <Form onSubmit={handleSubmit}>
                             <Label>Nome e sobrenome</Label>
                             <InputsModalCad>
-                                <InputModalCad placeholder="Nome" />
-                                <InputModalCad placeholder="Sobrenome" />
+                                <InputModalCad
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Nome"
+                                />
+                                <InputModalCad
+                                    onChange={(e) => setSurname(e.target.value)}
+                                    placeholder="Sobrenome"
+                                />
                             </InputsModalCad>
                             <Label>Email</Label>
-                            <InputModalCad placeholder="E-Mail" />
+                            <InputModalCad
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="E-Mail"
+                            />
                             <Label>Senha</Label>
-                            <InputModalCad type="password" placeholder="Senha" />
-                            <Button>Cadastrar</Button>
+                            <InputModalCad
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                                placeholder="Senha"
+                            />
+                            <Button type="submit">Cadastrar</Button>
                         </Form>
                         </>
                     }
