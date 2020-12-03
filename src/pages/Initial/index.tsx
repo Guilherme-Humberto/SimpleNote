@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
-import { AiOutlineClose } from 'react-icons/ai'
-import { BiPlus } from 'react-icons/bi'
+import { FiMoreHorizontal } from 'react-icons/fi'
 
 import {
   Container,
   Title,
   Desc,
   ButtonInitial,
-  ButtonCloseModal
 } from './styles';
 
 import ButtonPlus from '../../components/ButtonPlus';
@@ -48,7 +45,7 @@ const Initial: React.FC = () => {
         />
 
         <ButtonInitial onClick={() => setModal(true)}>
-          <BiPlus size={45} color="#323F49" />
+          <FiMoreHorizontal size={45} color="#323F49" />
         </ButtonInitial>
       </Container>
 
@@ -56,11 +53,7 @@ const Initial: React.FC = () => {
         <ButtonPlus
           infos={infos._id}
           token={token}
-          buttonCloseModal={
-            <ButtonCloseModal onClick={() => setModal(false)}>
-              <AiOutlineClose color="#323F49" size={30} />
-            </ButtonCloseModal>
-          }
+          setCloseModal={setModal}
         />
       )}
     </>

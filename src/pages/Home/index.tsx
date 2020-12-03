@@ -50,9 +50,20 @@ const Home: React.FC = () => {
         setModalsCad(false)
     }
 
-    const handleSubmit = async (event: FormEvent) => {
-        event.preventDefault();
-        await api.post("register", { name, email, password })
+    const handleSubmit = async () => {
+        await api.post("register", { name, surname, email, password })
+        .then((response) => {
+            const { token, user } = response.data
+            localStorage.setItem("token", token)
+            localStorage.setItem("user", JSON.stringify(user))
+            router.push("Initial")
+        })
+        .catch(err => console.log(err))
+    }
+
+    const handleLogin = async (e: FormEvent) => {
+        e.preventDefault()
+        await api.post("auth", { email, password })
         .then((response) => {
             const { token, user } = response.data
             localStorage.setItem("token", token)
@@ -180,12 +191,19 @@ const Home: React.FC = () => {
                         <>
                         <Title>Acessar</Title>
                         <Desc>Quem bom que você está de volta, está na hora de revisar suas notas</Desc>
-                        <Form>
+                        <Form onSubmit={handleLogin}>
                             <Label>Email</Label>
-                            <InputModalCad placeholder="E-Mail" />
+                            <InputModalCad 
+                                placeholder="E-Mail" 
+                                onChange={(e) => setEmail(e.target.value)} 
+                            />
                             <Label>Senha</Label>
-                            <InputModalCad type="password" placeholder="Senha" />
-                            <Button>Acessar</Button>
+                            <InputModalCad 
+                                type="password" 
+                                placeholder="Senha" 
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <Button type="submit">Acessar</Button>
                         </Form>
                         </>
                     }

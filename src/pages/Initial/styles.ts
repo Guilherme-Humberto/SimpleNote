@@ -35,10 +35,3 @@ export const ButtonInitial = styled(motion.button)`
     outline: none;
 `
 
-export const ButtonCloseModal = styled.button`
-    cursor: pointer;
-    margin: 0 4%;
-    background: transparent;
-    outline: none;
-    border: none;
-`
