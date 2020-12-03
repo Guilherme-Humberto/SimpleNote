@@ -10,23 +10,38 @@ export const ContainerCards = styled.div`
     gap: 40px;
     margin-top: 5%;
 `
-export const Card = styled(motion.div)`
+export const MessageContainer = styled.div`
+    max-width: 700px;
+    border: 2px solid #eee;
+    padding: 30px 10px;
+`
+export const MessageTitle = styled.p`
+    text-align: center;
+    font-size: 25px;
+    font-family: Roboto;
+    font-weight: bold;
+`
+export const MessageSubtitle = styled.p`
+    font-size: 20px;
+    margin: 5px 10px;
+    font-family: Roboto;
+`
+export const Card = styled.div`
+    position: relative;
     padding: 40px;
     max-width: 600px;
     height: 400px;
     max-width: 600px;
     background: #17232C;
 `
-
 export const Date = styled.p`
     font-size: 20px;
     font-family: Roboto;
     font-weight: bold;
     margin: 10px;
 `
-
 export const TitleCard = styled.p`
-    font-size: 40px;
+    font-size: 37px;
     font-family: Sansita;
     margin: 10px;
 `
@@ -36,7 +51,6 @@ export const DescCard = styled.p`
     font-family: Sansita;
     margin: 10px;
 `
-
 export const ContainerButtons = styled.div`
     position: absolute;
     z-index: 1;
@@ -45,7 +59,6 @@ export const ContainerButtons = styled.div`
     display: flex;
     gap: 15px;
 `
-
 export const ButtonCard = styled(motion.button)`
     cursor: pointer;
     border-radius: 50%;

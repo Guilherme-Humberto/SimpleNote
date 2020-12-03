@@ -19,7 +19,10 @@ import {
   Date,
   TitleCard,
   DescCard,
-  ButtonCard
+  ButtonCard,
+  MessageContainer,
+  MessageSubtitle,
+  MessageTitle
 } from './styles';
 
 interface Props {
@@ -92,62 +95,64 @@ const ListNotes: React.FC<Props> = ({ infos, token }) => {
   return (
     <>
       <ContainerCards>
-        {data.map((item, index, array) => (
-          !array ? (
-            <h1>Guilherme</h1>
-          ) : (
-              <Card
-                key={index}
-                initial={{ x: "-100%", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.5 }}
+        {data.length !== 0 ? (
+          data.map((item, index) => (
+            <Card>
+            <ContainerButtons>
+              <ButtonCard
+                style={{ background: "#387894" }}
+                onClick={() => handleDeleteNote(item._id)}
+                whileHover={{ scale: 1.4 }}
+                whileTap={{ scale: 0.9 }}
               >
-                <ContainerButtons>
-                  <ButtonCard
-                    style={{ background: "#387894" }}
-                    onClick={() => handleDeleteNote(item._id)}
-                    whileHover={{ scale: 1.4 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <AiOutlineClose size={30} color="#e1e1e6" />
-                  </ButtonCard>
-
-                  <ButtonCard
-                    style={{ background: "#b5838d" }}
-                    onClick={() => {
-                      setInfoModalEdit(item._id)
-                      setModalEdit(true)
-                    }}
-                    whileHover={{ scale: 1.4 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <AiOutlineEdit size={30} color="#e1e1e6" />
-                  </ButtonCard>
-
-                  <ButtonCard
-                    style={{ background: "#A34848" }}
-                    onClick={() => {
-                      item.favorite ?
-                        handleUpdateNoteFalse(item._id) :
-                        handleUpdateNoteTrue(item._id)
-                    }}
-                    whileHover={{ scale: 1.4 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    {item.favorite ?
-                      <AiFillHeart size={30} color="#e5989b" /> :
-                      <AiOutlineHeart size={30} color="#e1e1e6" />
-                    }
-                  </ButtonCard>
-                </ContainerButtons>
-
-                <Date>{item.createAt}</Date>
-                <TitleCard>{item.title}</TitleCard>
-                <DescCard>{item.note}</DescCard>
-              </Card>
-            )
-
-        ))}
+                <AiOutlineClose size={30} color="#e1e1e6" />
+              </ButtonCard>
+  
+              <ButtonCard
+                style={{ background: "#b5838d" }}
+                onClick={() => {
+                  setInfoModalEdit(item._id)
+                  setModalEdit(true)
+                }}
+                whileHover={{ scale: 1.4 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <AiOutlineEdit size={30} color="#e1e1e6" />
+              </ButtonCard>
+  
+              <ButtonCard
+                style={{ background: "#A34848" }}
+                onClick={() => {
+                  item.favorite ?
+                    handleUpdateNoteFalse(item._id) :
+                    handleUpdateNoteTrue(item._id)
+                }}
+                whileHover={{ scale: 1.4 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {item.favorite ?
+                  <AiFillHeart size={30} color="#e5989b" /> :
+                  <AiOutlineHeart size={30} color="#e1e1e6" />
+                }
+              </ButtonCard>
+            </ContainerButtons>
+  
+            <Date>{item.createAt}</Date>
+            <TitleCard>{item.title}</TitleCard>
+            <DescCard>{item.note}</DescCard>
+          </Card>
+          ))
+        ): (
+          <MessageContainer>
+            <MessageTitle>Adicione novas anotações</MessageTitle>
+            <MessageSubtitle>
+              Percebemos que você não adicionou nenhuma anotação.
+              É bem fácil, basta clicar no botão do lado esquedo da tela e selecionar o último botão.
+              Preencha os dados da sua anotação e pronto, está feito.
+              Você também pode ver suas anotações favoritas
+            </MessageSubtitle>
+          </MessageContainer>
+        )}
       </ContainerCards>
 
       {modalEdit && (

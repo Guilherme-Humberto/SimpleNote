@@ -19,7 +19,7 @@ export const Container = styled(motion.div)`
 
 export const ButtonAddNote = styled.button`
     cursor: pointer;
-    margin: 9% 4%;
+    margin: 1% 4%;
     padding: 10px;
     width: 50%;
     color: #e1e1e6;
@@ -31,10 +31,9 @@ export const ButtonAddNote = styled.button`
 
 export const ContentTop = styled.div`
     display: flex;
-    gap: 20px;
+    gap: 10px;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
 `
 
 export const ButtonNewNote = styled.button`
@@ -70,4 +69,11 @@ export const ButtoCloseModalAdd = styled.button`
     background: transparent;
     border: none;
     outline: none;
+`
+export const ButtonCloseModal = styled.button`
+    cursor: pointer;
+    margin: 0 4%;
+    background: transparent;
+    outline: none;
+    border: none;
 `
